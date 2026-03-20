@@ -65,7 +65,7 @@ $$
 $$
 P_{i}^{fro} = \sum_{j=1}^{M} \frac{P_{j}^{sub}}{D_{ij}} \quad (i \in \{1, 2, \dots, N\})
 $$
-where $M$ is the total number of subgraphs and $D_{ij}$  is the distance between the center of the $i$-th frontier and the central object node of the $j$-th subgraph
+- where $M$ is the total number of subgraphs and $D_{ij}$  is the distance between the center of the $i$-th frontier and the central object node of the $j$-th subgraph
 
 Sequence of prompts
 - Predict the most likely distance between [object] and [goal],
@@ -75,4 +75,18 @@ Sequence of prompts
 -  $P_{sub}$ can be simply computed by taking the inverse of the outputted distance
 
 #### Graph Based Re-perception
+
+- When the agent detects out a goal object, it will approach to this object, observe it from multiple perspectives and accumulate a credibility score $S$
+- For the $k$-th RGB-D observation since this moment, we compute the credibility of it by
+$$
+ S_{k} = C_{k} \cdot \sum_{j=1}^{M} \frac{P_{j}^{sub}}{D_{j}}
+$$
+- where $C_{k}$ is the confidence score of this goal object, $D_{j}$ is the distance between the central object node of the $j$-th subgraph and this object
+- The success condition for our re-perception mechanism:
+$$
+N_{stop} < N_{max}, \text{ where } N_{stop} = N, \text{ s.t. } \sum_{i=1}^{N-1} S_{i} < S_{thres} \le \sum_{i=1}^{N} S_{i}
+$$
+- where Nmax is a pre-defined maximum number of steps. 
+- If succeed, the agent will navigate to this goal object without any further exploration or perception. 
+- Otherwise, it will give up this object and continue the exploration
 
