@@ -1,3 +1,6 @@
+
+# SG-Nav: Online 3D Scene Graph Prompting for LLM-based Zero-shot Object Navigation
+Arxiv: https://arxiv.org/pdf/2410.08189
 # Summary
 
 Uses Scene Graph with LLM for navigation. It is a frontier based exploration method, where the agent finds the object goal in a zero shot manner. Only object category is provided to the agent. It build scene graph incrementally, also builds the occupancy map. LLM is then given scene graph and prompted to tell the frontier, where the object goal is most likely to be seen. 
